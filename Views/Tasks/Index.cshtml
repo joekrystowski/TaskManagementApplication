@@ -1,0 +1,73 @@
+﻿@model IEnumerable<TaskManagementApplication.Models.Task>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.NameSortParm" asp-route-currentSort="@ViewBag.CurrentSort">
+                    @Html.DisplayNameFor(model => model.Name)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.DescriptionSortParm" asp-route-currentSort="@ViewBag.CurrentSort">
+                    @Html.DisplayNameFor(model => model.Description)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.StatusSortParm" asp-route-currentSort="@ViewBag.CurrentSort">
+                    @Html.DisplayNameFor(model => model.Status)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.DateSortParm" asp-route-currentSort="@ViewBag.CurrentSort">
+                    @Html.DisplayNameFor(model => model.DueDate)
+                </a>
+            </th>
+            <th>
+                <a asp-action="Index" asp-route-sortOrder="@ViewBag.PrioritySortParm" asp-route-currentSort="@ViewBag.CurrentSort">
+                    @Html.DisplayNameFor(model => model.Priority)
+                </a>
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td style="word-wrap: break-word; white-space: normal; max-width: 200px;">
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DueDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Priority)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                <form asp-action="MarkCompleted" asp-route-id="@item.Id" method="post" style="display:inline;">
+                    <input type="hidden" name="id" value="@item.Id" />
+                    <button type="submit" class="btn btn-primary">Mark Completed</button>
+                </form>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
